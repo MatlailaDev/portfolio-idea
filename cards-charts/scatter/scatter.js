@@ -104,9 +104,44 @@ scatterBounds.selectAll(".voronoi")
         .on("mousemove", onMouseMove)
         .on("mouseleave", onMouseLeave)
 
-function onMouseMove() {}
+const tooltip = d3.select("#tooltip")
 
-function onMouseLeave() {}
+function onMouseMove(event, datum) {
+    const dayDot = scatterBounds.append("circle")
+        .attr("class", "tooltipDot")
+        .attr("cx", xScale(xAccessor(datum)))
+        .attr("cy", yScale(yAccessor(datum)))
+        .attr("r", 7)
+
+
+    const formatXPoint = d3.format(".2f")
+    tooltip.select("#x-point")
+        .text(formatXPoint(xAccessor(datum)))
+
+    const formatYPoint = d3.format(".2f")
+    tooltip.select("#y-point")
+        .text(formatYPoint(yAccessor(datum)))
+
+    const x = xScale(xAccessor(datum)) + scatterDimensions.marginLeft
+    const y = yScale(yAccessor(datum)) + scatterDimensions.marginTop
+
+    tooltip.style("transform", `translate(`
+      + `calc( -50% + ${x}px),`
+      + `calc(-100% + ${y}px)`
+      + `)`)
+
+    tooltip.style("opacity", 1)
+
+}   
+
+function onMouseLeave() {
+    d3.selectAll(".tooltipDot")
+        .remove()
+
+    tooltip.style("opacity", 0)
+}
+
+
 
 // 6.Draw Peripherals
 const xAxis = scatterBounds.append("g")

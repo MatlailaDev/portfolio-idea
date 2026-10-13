@@ -21,3 +21,25 @@
     stroke-width: 1;
     opacity: 1;
 }
+
+.tooltip {
+    opacity: 1;
+    position: absolute;
+    top: -14px;
+    left: 0;
+    padding: 0.6em 1em;
+    background: #FEFEFE;
+    color: #000000;
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 0.9em;
+    border: 1px solid #DDD;
+    z-index: 10;
+    transition: all 0.1s ease-out;
+    pointer-events: none; 
+}
+
+.tooltipDot {
+    fill: maroon;
+    pointer-events: none;
+}
