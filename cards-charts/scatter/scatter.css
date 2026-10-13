@@ -2,14 +2,22 @@
     border: 2px dotted red;
     height: auto;
     width: 100%;
+    max-width: 2000px;
+    position: relative;
      
 }
 
 #scatter-wrapper text {
     /* border: 1px dotted black; */
-    width: 200px;
+    width: 150px;
     font-size: 12px;
     text-anchor: middle;
     color: black;
     margin: 5px auto;
+}
+
+.voronoi {
+    fill: transparent;
+    stroke-width: 1;
+    opacity: 1;
 }

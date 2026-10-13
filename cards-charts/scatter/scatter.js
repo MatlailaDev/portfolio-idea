@@ -28,8 +28,8 @@ const colorAccessor = (d) => d.x
 
 //2. Create Dimensions
 const scatterDimensions = {
-    scatterWidth: d3.min([window.innerWidth * 0.9, window.innerHeight * 0.9]),
-    scatterHeight: d3.min([window.innerWidth * 0.9, window.innerHeight * 0.9]),
+    scatterWidth: d3.min([window.innerWidth * 1 , window.innerHeight * 1]),
+    scatterHeight: d3.min([window.innerWidth * 1, window.innerHeight * 1]),
     marginLeft: 50,
     marginRight: 10,
     marginTop: 10,
@@ -43,9 +43,9 @@ const scatterBoundsHeight = scatterDimensions.scatterHeight - scatterDimensions.
 //3. DrawCanvas 
 const scatterWrapper = d3.select("#scatter-wrapper")
     .append("svg")
-    // .attr("viewBox", [0,0, scatterDimensions.scatterWidth, scatterDimensions.scatterHeight ])
-    .attr("width", scatterDimensions.scatterWidth)
-    .attr("height", scatterDimensions.scatterHeight)
+    .attr("viewBox", [0,0, scatterDimensions.scatterWidth, scatterDimensions.scatterHeight ])
+    // .attr("width", scatterDimensions.scatterWidth)
+    // .attr("height", scatterDimensions.scatterHeight)
 
 const scatterBounds = scatterWrapper.append("g")
     .style("transform", `translate(${scatterDimensions.marginLeft}px, ${scatterDimensions.marginTop}px)`)
@@ -80,6 +80,33 @@ function drawDots(dataset, color) {
 }
 
 drawDots(dataset, (d) => colorScale(colorAccessor(d)))
+
+
+// As part of step 5 I want to draw voronoi cells for hover tooltip
+const delaunay = d3.Delaunay.from(
+    dataset,
+    (d) => xScale(xAccessor(d)),
+    (d) => yScale(yAccessor(d))
+)
+
+const voronoi = delaunay.voronoi()
+
+voronoi.xmax = scatterBoundsWidth
+voronoi.ymax = scatterBoundsHeight
+
+scatterBounds.selectAll(".voronoi")
+    .data(dataset)
+    .enter()
+    .append("path")
+        .attr("class", "voronoi")
+        .attr("d", (d,i) => voronoi.renderCell(i))
+        .attr("stroke", "maroon")
+        .on("mousemove", onMouseMove)
+        .on("mouseleave", onMouseLeave)
+
+function onMouseMove() {}
+
+function onMouseLeave() {}
 
 // 6.Draw Peripherals
 const xAxis = scatterBounds.append("g")
