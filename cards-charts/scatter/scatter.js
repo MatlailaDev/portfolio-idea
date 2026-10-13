@@ -122,8 +122,11 @@ function onMouseMove(event, datum) {
     tooltip.select("#y-point")
         .text(formatYPoint(yAccessor(datum)))
 
-    const x = xScale(xAccessor(datum)) + scatterDimensions.marginLeft
-    const y = yScale(yAccessor(datum)) + scatterDimensions.marginTop
+    const svgRect = scatterWrapper.node().getBoundingClientRect()
+    const ratio = svgRect.width / scatterDimensions.scatterWidth
+
+    const x = (xScale(xAccessor(datum)) + scatterDimensions.marginLeft) * ratio
+    const y = (yScale(yAccessor(datum)) + scatterDimensions.marginTop) * ratio
 
     tooltip.style("transform", `translate(`
       + `calc( -50% + ${x}px),`
