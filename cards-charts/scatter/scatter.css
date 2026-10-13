@@ -2,4 +2,14 @@
     border: 2px dotted red;
     height: auto;
     width: 100%;
+     
+}
+
+#scatter-wrapper text {
+    /* border: 1px dotted black; */
+    width: 200px;
+    font-size: 12px;
+    text-anchor: middle;
+    color: black;
+    margin: 5px auto;
 }

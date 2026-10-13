@@ -64,9 +64,9 @@ header .hero {
 .card-list .card-item {
     color: #FFF;
     user-select: none;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     backdrop-filter: blur(30px);
     width: 150px;
     height: 550px;
